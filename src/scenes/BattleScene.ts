@@ -436,86 +436,103 @@ export class BattleScene extends Phaser.Scene {
   private drawSeamlessIsometricValley(): void {
     const g = this.add.graphics().setDepth(1);
 
-    // 1. Lush, sunlit emerald & olive meadow base (matching Kingshot Screenshot 1)
-    g.fillStyle(0x417e38, 1);
+    // 1. Lush, vibrant sunlit emerald meadow base (matching Kingshot Screenshot 1 & 3!)
+    g.fillStyle(0x4b9e42, 1);
     g.fillRect(0, 0, this.WORLD_W, this.WORLD_H);
 
     const patches = [
-      { x: 660, y: 740, rx: 460, ry: 360, color: 0x529644 },
-      { x: 660, y: 740, rx: 370, ry: 290, color: 0x62ab52 },
-      { x: 430, y: 380, rx: 210, ry: 130, color: 0x4f9142 },
-      { x: 890, y: 380, rx: 210, ry: 130, color: 0x4f9142 },
-      { x: 660, y: 1080, rx: 310, ry: 120, color: 0x4f9142 }
+      { x: 660, y: 720, rx: 520, ry: 410, color: 0x58b04e },
+      { x: 660, y: 730, rx: 380, ry: 300, color: 0x62ba57 },
+      { x: 430, y: 370, rx: 220, ry: 135, color: 0x53a849 },
+      { x: 890, y: 370, rx: 220, ry: 135, color: 0x53a849 },
+      { x: 660, y: 1080, rx: 330, ry: 125, color: 0x53a849 }
     ];
     for (const p of patches) {
-      g.fillStyle(p.color, 0.92);
+      g.fillStyle(p.color, 0.95);
       g.fillEllipse(p.x, p.y, p.rx * 2, p.ry * 2);
     }
 
+    // Soft darker grass contour islands (like Screenshot 1 & 3)
+    const grassIslands = [
+      { x: 450, y: 670, rx: 65, ry: 42 },
+      { x: 870, y: 670, rx: 65, ry: 42 },
+      { x: 450, y: 865, rx: 60, ry: 38 },
+      { x: 870, y: 865, rx: 60, ry: 38 },
+      { x: 560, y: 540, rx: 52, ry: 34 }
+    ];
+    for (const isl of grassIslands) {
+      g.fillStyle(0x48993e, 0.55);
+      g.fillEllipse(isl.x, isl.y, isl.rx * 2, isl.ry * 2);
+    }
+
     // Grass tufts, clover patches & sunlit wildflowers
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 85; i++) {
       const gx = 180 + ((i * 79) % 960);
       const gy = 235 + ((i * 139) % 850);
-      g.fillStyle(i % 4 === 0 ? 0xffe066 : i % 2 === 0 ? 0x79c667 : 0x33692c, 0.72);
+      g.fillStyle(i % 4 === 0 ? 0xffe066 : i % 2 === 0 ? 0x7dd46d : 0x3b7d33, 0.72);
       g.fillCircle(gx, gy, i % 4 === 0 ? 2.5 : 3.5);
     }
 
-    // 2. Northern Sparkling Turquoise River with Sandy Banks
+    // 2. Curving Northern Sparkling Turquoise River with White Foam Shoreline (like Screenshot 1 & 3)
     g.fillStyle(0xd9c290, 1);
-    g.fillRect(0, 138, this.WORLD_W, 96);
-    g.fillStyle(0x1b76a8, 1);
-    g.fillRect(0, 150, this.WORLD_W, 72);
-    g.fillStyle(0x32addf, 1);
-    g.fillRect(0, 158, this.WORLD_W, 56);
-    g.fillStyle(0xa8f4ff, 0.65);
-    for (let rx = 35; rx < this.WORLD_W; rx += 80) {
-      g.fillRoundedRect(rx, 168 + (rx % 3) * 11, 52, 6, 3);
+    g.fillRect(0, 134, this.WORLD_W, 102);
+    g.fillStyle(0xe8f9ff, 0.85);
+    g.fillRect(0, 144, this.WORLD_W, 82);
+    g.fillStyle(0x2892c4, 1);
+    g.fillRect(0, 149, this.WORLD_W, 72);
+    g.fillStyle(0x3cb8eb, 1);
+    g.fillRect(0, 157, this.WORLD_W, 56);
+    g.fillStyle(0xb8f6ff, 0.75);
+    for (let rx = 35; rx < this.WORLD_W; rx += 76) {
+      g.fillRoundedRect(rx, 166 + (rx % 3) * 11, 50, 6, 3);
     }
 
-    // 3. Organic Warm Ochre & Cobblestone Roads connecting Gates & Buildings
-    g.lineStyle(62, 0xa88d63, 1);
-    g.lineBetween(660, 138, 660, 960);
+    // 3. Organic Curving Tan Dirt Roads & Central Ring Plaza (1:1 Kingshot Screenshot 1 & 3!)
+    // Outer road border (#B0956B)
+    g.lineStyle(44, 0xb0956b, 1);
+    g.strokeCircle(this.KEEP_X, 735, 136);
+    g.lineBetween(660, 136, 660, 945);
     g.lineBetween(150, 620, 320, 740);
     g.lineBetween(320, 740, 1000, 740);
     g.lineBetween(1000, 740, 1170, 620);
+    g.lineBetween(395, 555, 520, 620);
+    g.lineBetween(925, 555, 800, 620);
+    g.lineBetween(395, 845, 505, 935);
+    g.lineBetween(505, 935, 815, 935);
+    g.lineBetween(815, 935, 925, 700);
 
-    g.lineStyle(48, 0xdec59a, 1);
-    g.lineBetween(660, 138, 660, 960);
+    // Inner sunlit dirt road (#DEC69B)
+    g.lineStyle(34, 0xdec69b, 1);
+    g.strokeCircle(this.KEEP_X, 735, 136);
+    g.lineBetween(660, 136, 660, 945);
     g.lineBetween(150, 620, 320, 740);
     g.lineBetween(320, 740, 1000, 740);
     g.lineBetween(1000, 740, 1170, 620);
+    g.lineBetween(395, 555, 520, 620);
+    g.lineBetween(925, 555, 800, 620);
+    g.lineBetween(395, 845, 505, 935);
+    g.lineBetween(505, 935, 815, 935);
+    g.lineBetween(815, 935, 925, 700);
+
+    // Central Solar Keep Cobblestone Plaza
+    g.fillStyle(0xb0956b, 1);
+    g.fillEllipse(this.KEEP_X, 735, 180, 134);
+    g.fillStyle(0xe2cca4, 1);
+    g.fillEllipse(this.KEEP_X, 735, 166, 122);
 
     // Timber & Stone Bridge over the Northern River
     g.fillStyle(0x75471f, 1);
-    g.fillRoundedRect(606, 136, 108, 106, 10);
+    g.fillRoundedRect(606, 134, 108, 108, 10);
     g.lineStyle(4, 0x42260f, 1);
-    g.strokeRoundedRect(606, 136, 108, 106, 10);
-    for (let by = 148; by <= 232; by += 12) {
+    g.strokeRoundedRect(606, 134, 108, 108, 10);
+    for (let by = 146; by <= 232; by += 12) {
       g.lineStyle(2.5, 0xa36830, 0.95);
       g.lineBetween(612, by, 708, by);
     }
 
-    // 4. Sunlit Isometric Citadel Courtyard Plaza with Lush Green Garden Borders inside the Walls
-    g.fillStyle(0x63ab52, 0.95);
-    g.fillRoundedRect(336, 476, 648, 524, 30);
-
-    g.fillStyle(0xd8c39e, 0.94);
-    g.fillRoundedRect(362, 500, 596, 476, 26);
-    g.lineStyle(3, 0x9c845c, 0.85);
-    g.strokeRoundedRect(362, 500, 596, 476, 26);
-
-    // Subtle courtyard flagstones
-    g.lineStyle(1.2, 0xb8a076, 0.42);
-    for (let cx = 410; cx <= 910; cx += 64) {
-      g.lineBetween(cx, 504, cx, 972);
-    }
-    for (let cy = 540; cy <= 940; cy += 64) {
-      g.lineBetween(366, cy, 954, cy);
-    }
-
     // Warm Golden Aura around the Central Solar Keep
-    g.fillStyle(0xffb020, 0.2);
-    g.fillCircle(this.KEEP_X, this.KEEP_Y, 148);
+    g.fillStyle(0xffb020, 0.16);
+    g.fillCircle(this.KEEP_X, 735, 110);
 
     // 5. Animated Red Enemy Approach Chevrons
     const arrowPoints: Array<{ x: number; y: number; rot: number }> = [
@@ -879,8 +896,8 @@ export class BattleScene extends Phaser.Scene {
         isAlarmBell: true,
         name: 'Campana',
         iconEmoji: '🔔',
-        x: 660,
-        y: 558,
+        x: 570,
+        y: 650,
         scale: 1.12,
         padOffsetY: 40,
         obstacleRadius: 0,
@@ -3676,7 +3693,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   /**
-   * 1:1 Kingshot "CHOOSE YOUR TOWER" Illustrated Card Modal (Screenshot 3!)
+   * 1:1 Kingshot "CHOOSE YOUR TOWER" Vertical Illustrated Card Modal (Screenshot 3!)
    * Opens when tapping any Watchtower Slot in the village/fortress.
    */
   public openTowerSelectionModal(slotIndex: number): void {
@@ -3684,21 +3701,27 @@ export class BattleScene extends Phaser.Scene {
     if (!slot) return;
 
     const cy = this.createModalFrame(
-      `🗼 TORRE DIFESA ${slotIndex + 1} ${slot.turretType ? `(Lv.${slot.level})` : '(SCEGLI TORRE)'}`,
-      510,
+      `🗼 SCEGLI LA TUA TORRE (SLOT ${slotIndex + 1})`,
+      515,
       `tower_${slotIndex}`
     );
 
-    const types: Array<{ id: TurretTypeId; roleIt: string }> = [
-      { id: 'archer', roleIt: 'Balista Rapida • Anti-Aria' },
-      { id: 'cannon', roleIt: 'Bombarda Pesante • Perforante' },
-      { id: 'magic', roleIt: 'Guglia Arcana • Vero Danno' },
-      { id: 'ice', roleIt: 'Crio-Faro • Rallenta -45%' },
-      { id: 'mortar', roleIt: 'Mortaio Solare • Area & Fuoco' }
+    const types: Array<{ id: TurretTypeId; roleIt: string; skyTint: number }> = [
+      { id: 'archer', roleIt: 'Balista Rapida', skyTint: 0xffe4a0 },
+      { id: 'cannon', roleIt: 'Bombarda Pesante', skyTint: 0xcbe8ff },
+      { id: 'magic', roleIt: 'Guglia Arcana', skyTint: 0xe9d5ff },
+      { id: 'ice', roleIt: 'Crio-Obelisco', skyTint: 0xbaf2ff },
+      { id: 'mortar', roleIt: 'Mortaio Solare', skyTint: 0xffd6c9 }
     ];
 
     types.forEach((t, idx) => {
-      const rowY = cy - 160 + idx * 82;
+      const isTopRow = idx < 3;
+      const col = isTopRow ? idx : idx - 3;
+      const cardW = isTopRow ? 122 : 184;
+      const cardH = 202;
+      const cardX = isTopRow ? 90 + col * 130 : 124 + col * 192;
+      const cardY = isTopRow ? cy - 88 : cy + 124;
+
       const cfg = balancingData.turrets[t.id];
       const isCurrent = slot.turretType === t.id;
       const nextLv = isCurrent ? slot.level + 1 : 1;
@@ -3707,79 +3730,97 @@ export class BattleScene extends Phaser.Scene {
       const cost = this.getTurretUpgradeCost(t.id, isCurrent ? slot.level : 0);
       const canAfford = this.battleGold >= cost && !isMax;
 
+      // Warm Parchment/Gold Vertical Card Frame (1:1 "CHOOSE YOUR TOWER" Screenshot 3!)
       const card = this.registerModalObj(
         this.add
-          .rectangle(220, rowY, 384, 72, isCurrent ? 0x1e3f5a : 0x182640, 1)
-          .setStrokeStyle(2, isCurrent ? 0x2ecc71 : 0xffb020, 0.95)
+          .rectangle(cardX, cardY, cardW, cardH, 0xf5e6c8, 1)
+          .setStrokeStyle(3, isCurrent ? 0x2ecc71 : 0xd97724, 1)
           .setInteractive({ useHandCursor: true }),
         92
       );
 
+      // Illustrated Sky + Green Lawn Header inside Card
       this.registerModalObj(
-        this.add.image(62, rowY, `turret_${t.id}`).setScale(0.76),
+        this.add
+          .rectangle(cardX, cardY - 34, cardW - 10, 114, t.skyTint, 1)
+          .setStrokeStyle(1.5, 0xc49a5c, 1),
+        93
+      );
+      this.registerModalObj(
+        this.add.ellipse(cardX, cardY + 6, cardW - 16, 32, 0x5ab552, 1),
         93
       );
 
+      // Large 2.5D Watchtower Illustration on the Card
+      this.registerModalObj(
+        this.add.image(cardX, cardY - 30, `turret_${t.id}`).setScale(1.02),
+        94
+      );
+
+      // Tower Name & Stats on Parchment
       this.registerModalObj(
         this.add
-          .text(104, rowY - 15, `${I18n.t(`turret.${t.id}`)} ${isCurrent ? `[Lv.${slot.level}]` : ''}`, {
-            fontSize: '15px',
+          .text(cardX, cardY + 34, I18n.t(`turret.${t.id}`), {
+            fontSize: '12px',
             fontStyle: 'bold',
-            color: '#FFF3D1',
+            color: '#2C1810',
             resolution: 2
           })
-          .setOrigin(0, 0.5),
-        93
+          .setOrigin(0.5),
+        94
       );
 
       this.registerModalObj(
         this.add
-          .text(104, rowY + 11, `${t.roleIt}\n⚔️ Danno ${cfg.baseDamage} • 🎯 Raggio ${cfg.rangePx}`, {
+          .text(cardX, cardY + 51, `⚔️${cfg.baseDamage} • 🎯${cfg.rangePx}`, {
             fontSize: '11px',
-            color: '#2CE8C8',
+            fontStyle: 'bold',
+            color: '#5C3A21',
             resolution: 2
           })
-          .setOrigin(0, 0.5),
-        93
+          .setOrigin(0.5),
+        94
       );
 
+      // Bottom Wood/Gold Cost Pill (matching Screenshot 3!)
       const actBtn = this.registerModalObj(
         this.add
-          .rectangle(346, rowY, 96, 48, isMax ? 0x334155 : canAfford ? 0x2ecc71 : 0xd97724, 1)
-          .setStrokeStyle(2, 0xfff3d1, 1)
+          .rectangle(
+            cardX,
+            cardY + 78,
+            cardW - 14,
+            34,
+            isMax ? 0x64748b : canAfford ? 0x2ecc71 : 0xd97724,
+            1
+          )
+          .setStrokeStyle(2, 0x2c1810, 0.9)
           .setInteractive({ useHandCursor: true }),
-        93
+        94
       );
 
       this.registerModalObj(
         this.add
           .text(
-            346,
-            rowY,
-            isMax
-              ? 'MAX'
-              : `${isCurrent ? '⬆️ Lv.' + nextLv : 'COSTRUISCI'}\n🪙 ${cost}`,
+            cardX,
+            cardY + 78,
+            isMax ? 'MAX' : `${isCurrent ? '⬆️ Lv.' + nextLv : '🪵 🪙'} ${cost}`,
             {
-              fontSize: '12px',
+              fontSize: '13px',
               fontStyle: 'bold',
-              color: isMax ? '#B8C0D0' : '#10172A',
-              align: 'center',
+              color: isMax ? '#FFF3D1' : '#10172A',
               resolution: 2
             }
           )
           .setOrigin(0.5),
-        94
+        95
       );
 
       const triggerBuild = () => {
         if (isMax) return;
         this.selectedTurretType = t.id;
-        if (this.battleGold < cost) {
-          // Allow instant build if player has village gold or show helpful feedback
-          if (GameState.state.resources.gold >= 20) {
-            GameState.state.resources.gold -= 20;
-            this.battleGold += cost;
-          }
+        if (this.battleGold < cost && GameState.state.resources.gold >= 20) {
+          GameState.state.resources.gold -= 20;
+          this.battleGold += cost;
         }
         if (this.buildOrUpgradeSlot(slotIndex, t.id, false)) {
           this.closeModal();

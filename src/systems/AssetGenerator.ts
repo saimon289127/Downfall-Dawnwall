@@ -207,24 +207,24 @@ export function generateAllGameTextures(scene: Phaser.Scene): void {
     ctx.fill();
   });
 
-  // 3. 3D Isometric Fortress Wall Segment (Horizontal - 'Barikade' from Kingshot Screenshot 1 & 3)
+  // 3. 3D Isometric Fortress Wall Segment (Horizontal - Warm Sandstone & Timber Rampart like Screenshot 1 & 3)
   makeCanvas(scene, 'wall_seg_h', 64, 46, (ctx) => {
     // Ground ambient occlusion shadow
-    ctx.fillStyle = 'rgba(10, 15, 28, 0.42)';
+    ctx.fillStyle = 'rgba(18, 28, 14, 0.42)';
     ctx.beginPath();
-    ctx.ellipse(32, 40, 31, 6, 0, 0, Math.PI * 2);
+    ctx.ellipse(32, 41, 31, 6, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Front vertical stone rampart wall
+    // Front vertical sandstone rampart wall
     const frontGrad = ctx.createLinearGradient(0, 14, 0, 39);
-    frontGrad.addColorStop(0, '#7B8A9E');
-    frontGrad.addColorStop(0.55, '#526075');
-    frontGrad.addColorStop(1, '#323C4D');
+    frontGrad.addColorStop(0, '#D4BC94');
+    frontGrad.addColorStop(0.55, '#B59B72');
+    frontGrad.addColorStop(1, '#7D6744');
     ctx.fillStyle = frontGrad;
     ctx.fillRect(0, 14, 64, 25);
 
     // Masoned ashlar stone blocks on front face
-    ctx.strokeStyle = 'rgba(18, 24, 38, 0.55)';
+    ctx.strokeStyle = 'rgba(66, 48, 24, 0.48)';
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(0, 22);
@@ -243,49 +243,49 @@ export function generateAllGameTextures(scene: Phaser.Scene): void {
 
     // Timber reinforcement beam across the middle
     const woodGrad = ctx.createLinearGradient(0, 25, 0, 31);
-    woodGrad.addColorStop(0, '#9E6324');
-    woodGrad.addColorStop(1, '#5E3711');
+    woodGrad.addColorStop(0, '#A86B32');
+    woodGrad.addColorStop(1, '#6E4219');
     ctx.fillStyle = woodGrad;
     ctx.fillRect(0, 25, 64, 5);
 
-    // Top sunlit stone walkway
+    // Top sunlit limestone walkway
     const topGrad = ctx.createLinearGradient(0, 7, 0, 15);
-    topGrad.addColorStop(0, '#CBD5E1');
-    topGrad.addColorStop(1, '#94A3B8');
+    topGrad.addColorStop(0, '#F2E3C6');
+    topGrad.addColorStop(1, '#D8C29D');
     ctx.fillStyle = topGrad;
     ctx.fillRect(0, 8, 64, 7);
 
     // 3D Crenellated Merlons / Battlements along top edge
     for (let mx = 2; mx < 62; mx += 16) {
-      ctx.fillStyle = '#E2E8F0';
+      ctx.fillStyle = '#FFF3D6';
       drawRoundedRect(ctx, mx, 2, 10, 7, 2);
       ctx.fill();
-      ctx.fillStyle = '#64748B';
+      ctx.fillStyle = '#B59B72';
       ctx.fillRect(mx, 7, 10, 3);
-      ctx.strokeStyle = '#1E293B';
+      ctx.strokeStyle = '#5C4524';
       ctx.lineWidth = 1;
       ctx.strokeRect(mx, 2, 10, 7);
     }
 
     // Bottom foundation trim
-    ctx.fillStyle = '#232B38';
+    ctx.fillStyle = '#5C4524';
     ctx.fillRect(0, 37, 64, 3);
   });
 
-  // 4. 3D Isometric Fortress Wall Segment (Vertical Left/Right Rampart)
+  // 4. 3D Isometric Fortress Wall Segment (Vertical Left/Right Sandstone Rampart)
   makeCanvas(scene, 'wall_seg_v', 34, 64, (ctx) => {
-    ctx.fillStyle = 'rgba(10, 15, 28, 0.38)';
+    ctx.fillStyle = 'rgba(18, 28, 14, 0.36)';
     ctx.fillRect(4, 4, 28, 58);
 
     const sideGrad = ctx.createLinearGradient(4, 0, 30, 0);
-    sideGrad.addColorStop(0, '#94A3B8');
-    sideGrad.addColorStop(0.5, '#64748B');
-    sideGrad.addColorStop(1, '#334155');
+    sideGrad.addColorStop(0, '#E6D2AE');
+    sideGrad.addColorStop(0.5, '#C2A87E');
+    sideGrad.addColorStop(1, '#826B47');
     ctx.fillStyle = sideGrad;
     ctx.fillRect(6, 0, 22, 64);
 
     // Timber cross-ties & stone joints
-    ctx.strokeStyle = 'rgba(15, 23, 42, 0.55)';
+    ctx.strokeStyle = 'rgba(66, 48, 24, 0.48)';
     ctx.lineWidth = 1.2;
     for (let y = 8; y < 64; y += 12) {
       ctx.beginPath();
@@ -294,13 +294,13 @@ export function generateAllGameTextures(scene: Phaser.Scene): void {
       ctx.stroke();
     }
 
-    // Top walkway & side merlons
-    ctx.fillStyle = '#CBD5E1';
+    // Top sunlit walkway & side merlons
+    ctx.fillStyle = '#F2E3C6';
     ctx.fillRect(9, 0, 12, 64);
     for (let my = 3; my < 60; my += 16) {
-      ctx.fillStyle = '#E2E8F0';
+      ctx.fillStyle = '#FFF3D6';
       ctx.fillRect(4, my, 7, 9);
-      ctx.strokeStyle = '#1E293B';
+      ctx.strokeStyle = '#5C4524';
       ctx.lineWidth = 1;
       ctx.strokeRect(4, my, 7, 9);
     }
@@ -309,25 +309,25 @@ export function generateAllGameTextures(scene: Phaser.Scene): void {
   // 5. 3D Isometric Corner Bastion Tower ('wall_bastion')
   makeCanvas(scene, 'wall_bastion', 58, 72, (ctx) => {
     // Shadow
-    ctx.fillStyle = 'rgba(9, 12, 24, 0.48)';
+    ctx.fillStyle = 'rgba(18, 28, 14, 0.45)';
     ctx.beginPath();
     ctx.ellipse(29, 63, 24, 9, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cylindrical stone tower body
+    // Cylindrical warm sandstone tower body
     const bodyGrad = ctx.createLinearGradient(10, 24, 48, 62);
-    bodyGrad.addColorStop(0, '#CBD5E1');
-    bodyGrad.addColorStop(0.45, '#64748B');
-    bodyGrad.addColorStop(1, '#334155');
+    bodyGrad.addColorStop(0, '#F2E3C6');
+    bodyGrad.addColorStop(0.45, '#C4AA80');
+    bodyGrad.addColorStop(1, '#7D6744');
     ctx.fillStyle = bodyGrad;
     drawRoundedRect(ctx, 11, 24, 36, 38, 8);
     ctx.fill();
-    ctx.strokeStyle = '#1E293B';
+    ctx.strokeStyle = '#5C4524';
     ctx.lineWidth = 1.8;
     ctx.stroke();
 
     // Stone courses
-    ctx.strokeStyle = 'rgba(15, 23, 42, 0.35)';
+    ctx.strokeStyle = 'rgba(66, 48, 24, 0.35)';
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(11, 36);
