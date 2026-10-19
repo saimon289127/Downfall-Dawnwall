@@ -1,0 +1,8 @@
+{
+  "$schema": "https://bridge.playgama.com/v2/stable/schema.json",
+  "forciblySetPlatformId": "",
+  "sendAnalyticsEvents": true,
+  "Advertisement": {
+    "minimumDelayBetweenInterstitial": 90
+  }
+}
