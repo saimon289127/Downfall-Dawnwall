@@ -1,0 +1,10 @@
+# macOS folder settings
+.DS_Store
+
+# made when you install puppeteer in this folder (README.md, "What you need")
+node_modules/
+package.json
+package-lock.json
+
+# voice keys (scripts/voice.mjs keys)
+.env

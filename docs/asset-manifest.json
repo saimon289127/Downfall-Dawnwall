@@ -1,0 +1,52 @@
+{
+  "project": "Dawnwall (Solwark / Pyrebastion / Mistwark)",
+  "version": "1.0.0",
+  "budgets": {
+    "maxInitialPackageBytes": 5242880,
+    "maxTotalPackageBytes": 15728640,
+    "maxSingleFileBytes": 524288,
+    "targetInitialPackageBytes": 3993600
+  },
+  "styleBoardAssets": [
+    {
+      "id": "style_palette",
+      "path": "docs/styleboard/palette_swatches.png",
+      "type": "image/png",
+      "source": "Generated locally via Pillow script",
+      "license": "CC0 / Original Project Asset",
+      "status": "pending_user_approval"
+    },
+    {
+      "id": "style_building_3_levels",
+      "path": "docs/styleboard/building_3_levels.jpg",
+      "type": "image/jpeg",
+      "source": "Gemini Image Generation (hand-painted 2.5D isometric style)",
+      "license": "Original AI-Generated Commercial Asset",
+      "status": "pending_user_approval"
+    },
+    {
+      "id": "style_turrets_and_hero",
+      "path": "docs/styleboard/turrets_and_hero.jpg",
+      "type": "image/jpeg",
+      "source": "Gemini Image Generation (hand-painted 2.5D isometric style)",
+      "license": "Original AI-Generated Commercial Asset",
+      "status": "pending_user_approval"
+    },
+    {
+      "id": "style_enemies_3_types",
+      "path": "docs/styleboard/enemies_3_types.jpg",
+      "type": "image/jpeg",
+      "source": "Gemini Image Generation (hand-painted 2.5D isometric style)",
+      "license": "Original AI-Generated Commercial Asset",
+      "status": "pending_user_approval"
+    },
+    {
+      "id": "style_ui_mockup_vertical",
+      "path": "docs/styleboard/ui_mockup_vertical.jpg",
+      "type": "image/jpeg",
+      "source": "Gemini Image Generation (hand-painted 2.5D isometric style)",
+      "license": "Original AI-Generated Commercial Asset",
+      "status": "pending_user_approval"
+    }
+  ]
+}

@@ -1,0 +1,593 @@
+{
+  "version": "1.1.0",
+  "meta": {
+    "title": "Downfall",
+    "description": "Mathematical balancing configuration for Downfall. Clean-room 1:1 progression, settlement, combat, and longevity model.",
+    "targetFirstSessionMinutes": 15,
+    "maxOfflineHours": 8,
+    "freeSpeedupThresholdSeconds": 45,
+    "rewardedSpeedupFlatSeconds": 1800,
+    "rewardedSpeedupPercent": 0.5
+  },
+  "startingState": {
+    "resources": {
+      "food": 250,
+      "wood": 250,
+      "stone": 100,
+      "gold": 80,
+      "shards": 10
+    },
+    "buildings": {
+      "town_hall": 1,
+      "farm": 1,
+      "lumber_mill": 1,
+      "mine": 0,
+      "barracks": 1,
+      "turret_workshop": 1,
+      "academy": 0,
+      "walls": 1,
+      "hero_tavern": 0
+    },
+    "unlockedHeroes": ["kaelen"]
+  },
+  "powerFormula": {
+    "description": "Total Power = sum(BuildingPower) + sum(HeroPower) + sum(TroopPower) + sum(TurretTechPower) + sum(ResearchPower) + sum(HexTerritoryPower)",
+    "buildingBaseWeight": 120,
+    "buildingLevelExponent": 1.55,
+    "wallBonusWeight": 80,
+    "turretUnlockBase": 180,
+    "turretLevelMultiplier": 95,
+    "troopTierWeight": 110,
+    "heroBaseRarityPower": {
+      "rare": 350,
+      "epic": 600,
+      "legendary": 950
+    },
+    "heroLevelWeight": 45,
+    "heroStarMultipliers": [1.0, 1.25, 1.6, 2.05, 2.65],
+    "researchNodeWeight": 150,
+    "hexClearedWeight": 250
+  },
+  "buildings": {
+    "town_hall": {
+      "id": "town_hall",
+      "nameKey": "building.town_hall",
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "wood": 0, "stone": 0, "gold": 0 }, "timeSec": 0, "power": 150, "unlocks": ["farm", "lumber_mill", "barracks", "turret_workshop", "walls"] },
+        { "level": 2, "cost": { "wood": 120, "stone": 40, "gold": 0 }, "timeSec": 15, "power": 320, "unlocks": ["mine", "hero_tavern"] },
+        { "level": 3, "cost": { "wood": 280, "stone": 120, "gold": 30 }, "timeSec": 45, "power": 580, "unlocks": ["academy", "turret_ice"] },
+        { "level": 4, "cost": { "wood": 650, "stone": 320, "gold": 90 }, "timeSec": 180, "power": 980, "unlocks": ["second_builder_slot", "turret_mortar", "troop_cavalry"] },
+        { "level": 5, "cost": { "wood": 1400, "stone": 750, "gold": 220 }, "timeSec": 600, "power": 1600, "unlocks": ["hex_ring_2"] },
+        { "level": 6, "cost": { "wood": 3000, "stone": 1700, "gold": 500 }, "timeSec": 1800, "power": 2550, "unlocks": ["hero_star_4"] },
+        { "level": 7, "cost": { "wood": 6200, "stone": 3800, "gold": 1150 }, "timeSec": 3600, "power": 4000, "unlocks": ["hex_ring_3"] },
+        { "level": 8, "cost": { "wood": 12500, "stone": 8000, "gold": 2500 }, "timeSec": 7200, "power": 6200, "unlocks": ["elite_troops"] },
+        { "level": 9, "cost": { "wood": 25000, "stone": 16500, "gold": 5200 }, "timeSec": 14400, "power": 9500, "unlocks": ["citadel_overdrive"] },
+        { "level": 10, "cost": { "wood": 50000, "stone": 34000, "gold": 11000 }, "timeSec": 28800, "power": 14500, "unlocks": ["sun_citadel_ascension"] }
+      ]
+    },
+    "farm": {
+      "id": "farm",
+      "nameKey": "building.farm",
+      "produces": "food",
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "wood": 40, "stone": 0 }, "timeSec": 5, "ratePerMin": 30, "cap": 600, "power": 60 },
+        { "level": 2, "cost": { "wood": 90, "stone": 20 }, "timeSec": 15, "ratePerMin": 55, "cap": 1400, "power": 130 },
+        { "level": 3, "cost": { "wood": 200, "stone": 60 }, "timeSec": 40, "ratePerMin": 95, "cap": 3200, "power": 240 },
+        { "level": 4, "cost": { "wood": 450, "stone": 160 }, "timeSec": 120, "ratePerMin": 160, "cap": 7500, "power": 410 },
+        { "level": 5, "cost": { "wood": 950, "stone": 400 }, "timeSec": 360, "ratePerMin": 260, "cap": 16000, "power": 680 },
+        { "level": 6, "cost": { "wood": 2000, "stone": 950 }, "timeSec": 900, "ratePerMin": 420, "cap": 34000, "power": 1080 },
+        { "level": 7, "cost": { "wood": 4200, "stone": 2100 }, "timeSec": 2100, "ratePerMin": 680, "cap": 70000, "power": 1680 },
+        { "level": 8, "cost": { "wood": 8600, "stone": 4500 }, "timeSec": 4500, "ratePerMin": 1080, "cap": 140000, "power": 2580 },
+        { "level": 9, "cost": { "wood": 17500, "stone": 9500 }, "timeSec": 9000, "ratePerMin": 1700, "cap": 280000, "power": 3900 },
+        { "level": 10, "cost": { "wood": 35000, "stone": 20000 }, "timeSec": 18000, "ratePerMin": 2650, "cap": 550000, "power": 5800 }
+      ]
+    },
+    "lumber_mill": {
+      "id": "lumber_mill",
+      "nameKey": "building.lumber_mill",
+      "produces": "wood",
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "food": 40, "stone": 0 }, "timeSec": 5, "ratePerMin": 30, "cap": 600, "power": 60 },
+        { "level": 2, "cost": { "food": 90, "stone": 20 }, "timeSec": 15, "ratePerMin": 55, "cap": 1400, "power": 130 },
+        { "level": 3, "cost": { "food": 200, "stone": 60 }, "timeSec": 40, "ratePerMin": 95, "cap": 3200, "power": 240 },
+        { "level": 4, "cost": { "food": 450, "stone": 160 }, "timeSec": 120, "ratePerMin": 160, "cap": 7500, "power": 410 },
+        { "level": 5, "cost": { "food": 950, "stone": 400 }, "timeSec": 360, "ratePerMin": 260, "cap": 16000, "power": 680 },
+        { "level": 6, "cost": { "food": 2000, "stone": 950 }, "timeSec": 900, "ratePerMin": 420, "cap": 34000, "power": 1080 },
+        { "level": 7, "cost": { "food": 4200, "stone": 2100 }, "timeSec": 2100, "ratePerMin": 680, "cap": 70000, "power": 1680 },
+        { "level": 8, "cost": { "food": 8600, "stone": 4500 }, "timeSec": 4500, "ratePerMin": 1080, "cap": 140000, "power": 2580 },
+        { "level": 9, "cost": { "food": 17500, "stone": 9500 }, "timeSec": 9000, "ratePerMin": 1700, "cap": 280000, "power": 3900 },
+        { "level": 10, "cost": { "food": 35000, "stone": 20000 }, "timeSec": 18000, "ratePerMin": 2650, "cap": 550000, "power": 5800 }
+      ]
+    },
+    "mine": {
+      "id": "mine",
+      "nameKey": "building.mine",
+      "produces": ["stone", "gold"],
+      "unlockTownHall": 2,
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "food": 80, "wood": 100 }, "timeSec": 12, "stonePerMin": 22, "goldPerMin": 5, "stoneCap": 500, "goldCap": 150, "power": 90 },
+        { "level": 2, "cost": { "food": 180, "wood": 220 }, "timeSec": 30, "stonePerMin": 40, "goldPerMin": 10, "stoneCap": 1200, "goldCap": 360, "power": 190 },
+        { "level": 3, "cost": { "food": 380, "wood": 460 }, "timeSec": 75, "stonePerMin": 70, "goldPerMin": 18, "stoneCap": 2800, "goldCap": 850, "power": 340 },
+        { "level": 4, "cost": { "food": 800, "wood": 980 }, "timeSec": 210, "stonePerMin": 120, "goldPerMin": 32, "stoneCap": 6400, "goldCap": 2000, "power": 580 },
+        { "level": 5, "cost": { "food": 1700, "wood": 2100 }, "timeSec": 540, "stonePerMin": 200, "goldPerMin": 55, "stoneCap": 14000, "goldCap": 4400, "power": 950 },
+        { "level": 6, "cost": { "food": 3500, "wood": 4400 }, "timeSec": 1200, "stonePerMin": 330, "goldPerMin": 92, "stoneCap": 30000, "goldCap": 9500, "power": 1500 },
+        { "level": 7, "cost": { "food": 7200, "wood": 9000 }, "timeSec": 2700, "stonePerMin": 540, "goldPerMin": 150, "stoneCap": 62000, "goldCap": 20000, "power": 2350 },
+        { "level": 8, "cost": { "food": 14800, "wood": 18500 }, "timeSec": 5400, "stonePerMin": 860, "goldPerMin": 245, "stoneCap": 125000, "goldCap": 42000, "power": 3600 },
+        { "level": 9, "cost": { "food": 30000, "wood": 38000 }, "timeSec": 10800, "stonePerMin": 1350, "goldPerMin": 390, "stoneCap": 250000, "goldCap": 85000, "power": 5400 },
+        { "level": 10, "cost": { "food": 60000, "wood": 76000 }, "timeSec": 21600, "stonePerMin": 2100, "goldPerMin": 620, "stoneCap": 500000, "goldCap": 175000, "power": 8100 }
+      ]
+    },
+    "barracks": {
+      "id": "barracks",
+      "nameKey": "building.barracks",
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "food": 60, "wood": 60 }, "timeSec": 8, "troopStatMult": 1.0, "power": 100 },
+        { "level": 2, "cost": { "food": 140, "wood": 140, "stone": 30 }, "timeSec": 25, "troopStatMult": 1.18, "power": 210 },
+        { "level": 3, "cost": { "food": 300, "wood": 300, "stone": 90 }, "timeSec": 60, "troopStatMult": 1.38, "power": 380 },
+        { "level": 4, "cost": { "food": 650, "wood": 650, "stone": 220 }, "timeSec": 180, "troopStatMult": 1.62, "power": 640 },
+        { "level": 5, "cost": { "food": 1400, "wood": 1400, "stone": 500 }, "timeSec": 480, "troopStatMult": 1.9, "power": 1050 },
+        { "level": 6, "cost": { "food": 2900, "wood": 2900, "stone": 1100 }, "timeSec": 1080, "troopStatMult": 2.25, "power": 1680 },
+        { "level": 7, "cost": { "food": 6000, "wood": 6000, "stone": 2400 }, "timeSec": 2400, "troopStatMult": 2.65, "power": 2600 },
+        { "level": 8, "cost": { "food": 12200, "wood": 12200, "stone": 5000 }, "timeSec": 4800, "troopStatMult": 3.15, "power": 4000 },
+        { "level": 9, "cost": { "food": 25000, "wood": 25000, "stone": 10500 }, "timeSec": 9600, "troopStatMult": 3.75, "power": 6000 },
+        { "level": 10, "cost": { "food": 50000, "wood": 50000, "stone": 22000 }, "timeSec": 19200, "troopStatMult": 4.5, "power": 9000 }
+      ]
+    },
+    "turret_workshop": {
+      "id": "turret_workshop",
+      "nameKey": "building.turret_workshop",
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "wood": 70, "stone": 30 }, "timeSec": 8, "turretDamageMult": 1.0, "power": 110 },
+        { "level": 2, "cost": { "wood": 160, "stone": 80, "gold": 15 }, "timeSec": 25, "turretDamageMult": 1.16, "power": 230 },
+        { "level": 3, "cost": { "wood": 340, "stone": 180, "gold": 40 }, "timeSec": 65, "turretDamageMult": 1.35, "power": 410 },
+        { "level": 4, "cost": { "wood": 720, "stone": 400, "gold": 95 }, "timeSec": 195, "turretDamageMult": 1.58, "power": 690 },
+        { "level": 5, "cost": { "wood": 1550, "stone": 880, "gold": 210 }, "timeSec": 510, "turretDamageMult": 1.85, "power": 1120 },
+        { "level": 6, "cost": { "wood": 3200, "stone": 1900, "gold": 460 }, "timeSec": 1140, "turretDamageMult": 2.18, "power": 1780 },
+        { "level": 7, "cost": { "wood": 6600, "stone": 4000, "gold": 1000 }, "timeSec": 2520, "turretDamageMult": 2.58, "power": 2750 },
+        { "level": 8, "cost": { "wood": 13500, "stone": 8400, "gold": 2150 }, "timeSec": 5100, "turretDamageMult": 3.05, "power": 4200 },
+        { "level": 9, "cost": { "wood": 27500, "stone": 17500, "gold": 4500 }, "timeSec": 10200, "turretDamageMult": 3.6, "power": 6300 },
+        { "level": 10, "cost": { "wood": 55000, "stone": 36000, "gold": 9500 }, "timeSec": 20400, "turretDamageMult": 4.25, "power": 9400 }
+      ]
+    },
+    "walls": {
+      "id": "walls",
+      "nameKey": "building.walls",
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "wood": 50, "stone": 30 }, "timeSec": 5, "wallHp": 1000, "turretSlots": 4, "power": 90 },
+        { "level": 2, "cost": { "wood": 110, "stone": 75 }, "timeSec": 18, "wallHp": 1450, "turretSlots": 5, "power": 190 },
+        { "level": 3, "cost": { "wood": 240, "stone": 170 }, "timeSec": 50, "wallHp": 2100, "turretSlots": 6, "power": 340 },
+        { "level": 4, "cost": { "wood": 520, "stone": 380 }, "timeSec": 150, "wallHp": 3000, "turretSlots": 6, "power": 570 },
+        { "level": 5, "cost": { "wood": 1100, "stone": 850 }, "timeSec": 420, "wallHp": 4300, "turretSlots": 7, "power": 930 },
+        { "level": 6, "cost": { "wood": 2300, "stone": 1850 }, "timeSec": 960, "wallHp": 6100, "turretSlots": 7, "power": 1480 },
+        { "level": 7, "cost": { "wood": 4800, "stone": 3900 }, "timeSec": 2160, "wallHp": 8600, "turretSlots": 8, "power": 2300 },
+        { "level": 8, "cost": { "wood": 9800, "stone": 8200 }, "timeSec": 4500, "wallHp": 12200, "turretSlots": 8, "power": 3500 },
+        { "level": 9, "cost": { "wood": 20000, "stone": 17000 }, "timeSec": 9000, "wallHp": 17200, "turretSlots": 9, "power": 5250 },
+        { "level": 10, "cost": { "wood": 41000, "stone": 35000 }, "timeSec": 18000, "wallHp": 24500, "turretSlots": 10, "power": 7800 }
+      ]
+    },
+    "academy": {
+      "id": "academy",
+      "nameKey": "building.academy",
+      "unlockTownHall": 3,
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "wood": 200, "stone": 120, "gold": 40 }, "timeSec": 35, "researchSpeedMult": 1.0, "power": 180 },
+        { "level": 2, "cost": { "wood": 420, "stone": 260, "gold": 85 }, "timeSec": 90, "researchSpeedMult": 1.1, "power": 340 },
+        { "level": 3, "cost": { "wood": 880, "stone": 560, "gold": 180 }, "timeSec": 240, "researchSpeedMult": 1.2, "power": 590 },
+        { "level": 4, "cost": { "wood": 1850, "stone": 1200, "gold": 390 }, "timeSec": 600, "researchSpeedMult": 1.32, "power": 980 },
+        { "level": 5, "cost": { "wood": 3900, "stone": 2500, "gold": 820 }, "timeSec": 1350, "researchSpeedMult": 1.45, "power": 1580 },
+        { "level": 6, "cost": { "wood": 8000, "stone": 5200, "gold": 1750 }, "timeSec": 2880, "researchSpeedMult": 1.6, "power": 2480 },
+        { "level": 7, "cost": { "wood": 16500, "stone": 10800, "gold": 3600 }, "timeSec": 5760, "researchSpeedMult": 1.76, "power": 3800 },
+        { "level": 8, "cost": { "wood": 34000, "stone": 22500, "gold": 7500 }, "timeSec": 11520, "researchSpeedMult": 1.94, "power": 5750 },
+        { "level": 9, "cost": { "wood": 68000, "stone": 46000, "gold": 15500 }, "timeSec": 21600, "researchSpeedMult": 2.15, "power": 8600 },
+        { "level": 10, "cost": { "wood": 135000, "stone": 92000, "gold": 32000 }, "timeSec": 36000, "researchSpeedMult": 2.4, "power": 12800 }
+      ]
+    },
+    "hero_tavern": {
+      "id": "hero_tavern",
+      "nameKey": "building.hero_tavern",
+      "unlockTownHall": 2,
+      "maxLevel": 10,
+      "visualTiers": { "1": [1, 2, 3], "2": [4, 5, 6], "3": [7, 8, 9, 10] },
+      "levels": [
+        { "level": 1, "cost": { "wood": 140, "stone": 80, "gold": 25 }, "timeSec": 20, "freeChestCooldownHours": 4.0, "heroXpBonus": 1.0, "power": 150 },
+        { "level": 2, "cost": { "wood": 300, "stone": 180, "gold": 60 }, "timeSec": 55, "freeChestCooldownHours": 3.8, "heroXpBonus": 1.1, "power": 290 },
+        { "level": 3, "cost": { "wood": 640, "stone": 380, "gold": 130 }, "timeSec": 150, "freeChestCooldownHours": 3.6, "heroXpBonus": 1.2, "power": 510 },
+        { "level": 4, "cost": { "wood": 1350, "stone": 820, "gold": 280 }, "timeSec": 420, "freeChestCooldownHours": 3.4, "heroXpBonus": 1.35, "power": 860 },
+        { "level": 5, "cost": { "wood": 2800, "stone": 1750, "gold": 600 }, "timeSec": 960, "freeChestCooldownHours": 3.2, "heroXpBonus": 1.5, "power": 1400 },
+        { "level": 6, "cost": { "wood": 5800, "stone": 3600, "gold": 1250 }, "timeSec": 2160, "freeChestCooldownHours": 3.0, "heroXpBonus": 1.7, "power": 2200 },
+        { "level": 7, "cost": { "wood": 12000, "stone": 7500, "gold": 2600 }, "timeSec": 4500, "freeChestCooldownHours": 2.8, "heroXpBonus": 1.9, "power": 3400 },
+        { "level": 8, "cost": { "wood": 24500, "stone": 15500, "gold": 5400 }, "timeSec": 9000, "freeChestCooldownHours": 2.6, "heroXpBonus": 2.15, "power": 5150 },
+        { "level": 9, "cost": { "wood": 50000, "stone": 32000, "gold": 11000 }, "timeSec": 18000, "freeChestCooldownHours": 2.4, "heroXpBonus": 2.45, "power": 7700 },
+        { "level": 10, "cost": { "wood": 100000, "stone": 65000, "gold": 23000 }, "timeSec": 32400, "freeChestCooldownHours": 2.0, "heroXpBonus": 2.8, "power": 11500 }
+      ]
+    }
+  },
+  "turrets": {
+    "archer": {
+      "id": "archer",
+      "nameKey": "turret.archer",
+      "unlockTownHall": 1,
+      "role": "Rapid Single-Target & Anti-Air",
+      "buildCostBattleGold": 50,
+      "inBattleUpgradeCosts": [75, 125],
+      "inBattleMultipliers": [1.0, 1.55, 2.35],
+      "baseDamage": 24,
+      "fireRatePerSec": 1.8,
+      "rangePx": 210,
+      "splashRadiusPx": 0,
+      "armorPiercing": 0.1,
+      "defaultTargeting": "first"
+    },
+    "cannon": {
+      "id": "cannon",
+      "nameKey": "turret.cannon",
+      "unlockTownHall": 1,
+      "role": "Anti-Armor Heavy Impact",
+      "buildCostBattleGold": 75,
+      "inBattleUpgradeCosts": [110, 175],
+      "inBattleMultipliers": [1.0, 1.6, 2.45],
+      "baseDamage": 68,
+      "fireRatePerSec": 0.75,
+      "rangePx": 185,
+      "splashRadiusPx": 48,
+      "armorPiercing": 0.65,
+      "defaultTargeting": "strongest"
+    },
+    "magic": {
+      "id": "magic",
+      "nameKey": "turret.magic",
+      "unlockTownHall": 2,
+      "role": "True Arcane Beam & Chain",
+      "buildCostBattleGold": 90,
+      "inBattleUpgradeCosts": [135, 210],
+      "inBattleMultipliers": [1.0, 1.6, 2.5],
+      "baseDamage": 45,
+      "fireRatePerSec": 1.25,
+      "rangePx": 200,
+      "chainTargets": 2,
+      "armorPiercing": 1.0,
+      "defaultTargeting": "first"
+    },
+    "ice": {
+      "id": "ice",
+      "nameKey": "turret.ice",
+      "unlockTownHall": 3,
+      "role": "Crowd Control & Slow Aura",
+      "buildCostBattleGold": 80,
+      "inBattleUpgradeCosts": [120, 185],
+      "inBattleMultipliers": [1.0, 1.45, 2.1],
+      "baseDamage": 18,
+      "fireRatePerSec": 1.1,
+      "rangePx": 175,
+      "splashRadiusPx": 70,
+      "slowPercent": [0.35, 0.45, 0.55],
+      "slowDurationSec": 2.5,
+      "defaultTargeting": "first"
+    },
+    "mortar": {
+      "id": "mortar",
+      "nameKey": "turret.mortar",
+      "unlockTownHall": 4,
+      "role": "Long-Range Swarm Obliterator",
+      "buildCostBattleGold": 110,
+      "inBattleUpgradeCosts": [160, 250],
+      "inBattleMultipliers": [1.0, 1.65, 2.6],
+      "baseDamage": 95,
+      "fireRatePerSec": 0.45,
+      "rangePx": 270,
+      "splashRadiusPx": 95,
+      "burnDps": 12,
+      "burnDurationSec": 3.0,
+      "defaultTargeting": "closest"
+    }
+  },
+  "troops": {
+    "infantry": {
+      "id": "infantry",
+      "nameKey": "troop.infantry",
+      "unlockTownHall": 1,
+      "role": "Melee Blocker & Shield Wall",
+      "squadSize": 4,
+      "deployCooldownSec": 10,
+      "hpPerUnit": 260,
+      "dpsPerUnit": 18,
+      "armor": 0.25,
+      "speedPx": 55
+    },
+    "archers": {
+      "id": "archers",
+      "nameKey": "troop.archers",
+      "unlockTownHall": 2,
+      "role": "Ranged Volley Support",
+      "squadSize": 4,
+      "deployCooldownSec": 12,
+      "hpPerUnit": 130,
+      "dpsPerUnit": 32,
+      "rangePx": 165,
+      "armor": 0.05,
+      "speedPx": 60
+    },
+    "cavalry": {
+      "id": "cavalry",
+      "nameKey": "troop.cavalry",
+      "unlockTownHall": 4,
+      "role": "Lane Charge & Knockback",
+      "squadSize": 3,
+      "deployCooldownSec": 16,
+      "hpPerUnit": 340,
+      "dpsPerUnit": 42,
+      "chargeKnockbackPx": 45,
+      "armor": 0.2,
+      "speedPx": 110
+    }
+  },
+  "enemies": {
+    "mist_runner": {
+      "id": "mist_runner",
+      "nameKey": "enemy.mist_runner",
+      "archetype": "fast",
+      "baseHp": 75,
+      "speedPx": 78,
+      "armor": 0.0,
+      "wallDamage": 18,
+      "battleGoldBounty": 8
+    },
+    "veil_grunt": {
+      "id": "veil_grunt",
+      "nameKey": "enemy.veil_grunt",
+      "archetype": "balanced",
+      "baseHp": 135,
+      "speedPx": 52,
+      "armor": 0.1,
+      "wallDamage": 28,
+      "battleGoldBounty": 12
+    },
+    "swarm_crawler": {
+      "id": "swarm_crawler",
+      "nameKey": "enemy.swarm_crawler",
+      "archetype": "swarm",
+      "baseHp": 45,
+      "speedPx": 68,
+      "armor": 0.0,
+      "wallDamage": 10,
+      "battleGoldBounty": 5
+    },
+    "dread_shield": {
+      "id": "dread_shield",
+      "nameKey": "enemy.dread_shield",
+      "archetype": "armored",
+      "baseHp": 320,
+      "speedPx": 36,
+      "armor": 0.45,
+      "wallDamage": 55,
+      "battleGoldBounty": 24
+    },
+    "gloom_wing": {
+      "id": "gloom_wing",
+      "nameKey": "enemy.gloom_wing",
+      "archetype": "flying",
+      "baseHp": 110,
+      "speedPx": 65,
+      "armor": 0.05,
+      "wallDamage": 25,
+      "battleGoldBounty": 15
+    },
+    "veil_champion": {
+      "id": "veil_champion",
+      "nameKey": "enemy.veil_champion",
+      "archetype": "mini_boss",
+      "everyNWaves": 5,
+      "baseHp": 1150,
+      "speedPx": 32,
+      "armor": 0.35,
+      "wallDamage": 180,
+      "battleGoldBounty": 90
+    },
+    "eclipse_herald": {
+      "id": "eclipse_herald",
+      "nameKey": "enemy.eclipse_herald",
+      "archetype": "major_boss",
+      "everyNWaves": 10,
+      "baseHp": 2800,
+      "speedPx": 26,
+      "armor": 0.4,
+      "wallDamage": 350,
+      "battleGoldBounty": 220
+    }
+  },
+  "waves": {
+    "hpGrowthPerWave": 1.135,
+    "bountyGrowthPerWave": 1.08,
+    "clearRewardFormula": {
+      "baseFood": 90,
+      "baseWood": 90,
+      "baseStone": 45,
+      "baseGold": 25,
+      "waveMultiplier": 1.12,
+      "bossShardDrop": 3,
+      "majorBossShardDrop": 8
+    }
+  },
+  "heroes": [
+    {
+      "id": "kaelen",
+      "nameKey": "hero.kaelen.name",
+      "titleKey": "hero.kaelen.title",
+      "rarity": "rare",
+      "startingUnlocked": true,
+      "unlockShards": 10,
+      "activeSkill": {
+        "nameKey": "hero.kaelen.skill",
+        "cooldownSec": 14,
+        "radiusPx": 130,
+        "baseDamage": 240,
+        "stunSec": 1.5
+      },
+      "passive": { "type": "troop_hp_and_wall", "bonusPerStar": 0.08 }
+    },
+    {
+      "id": "lyra",
+      "nameKey": "hero.lyra.name",
+      "titleKey": "hero.lyra.title",
+      "rarity": "rare",
+      "startingUnlocked": false,
+      "unlockShards": 10,
+      "activeSkill": {
+        "nameKey": "hero.lyra.skill",
+        "cooldownSec": 13,
+        "radiusPx": 150,
+        "baseDamage": 210,
+        "turretAspdBuff": 0.25,
+        "buffDurationSec": 6
+      },
+      "passive": { "type": "archer_turret_damage", "bonusPerStar": 0.1 }
+    },
+    {
+      "id": "thorne",
+      "nameKey": "hero.thorne.name",
+      "titleKey": "hero.thorne.title",
+      "rarity": "epic",
+      "startingUnlocked": false,
+      "unlockShards": 20,
+      "activeSkill": {
+        "nameKey": "hero.thorne.skill",
+        "cooldownSec": 16,
+        "radiusPx": 160,
+        "baseDamage": 350,
+        "freezeSec": 3.0
+      },
+      "passive": { "type": "all_turret_range_and_slow", "bonusPerStar": 0.1 }
+    },
+    {
+      "id": "nyxara",
+      "nameKey": "hero.nyxara.name",
+      "titleKey": "hero.nyxara.title",
+      "rarity": "epic",
+      "startingUnlocked": false,
+      "unlockShards": 20,
+      "activeSkill": {
+        "nameKey": "hero.nyxara.skill",
+        "cooldownSec": 15,
+        "radiusPx": 145,
+        "baseDamage": 390,
+        "armorShred": 0.5
+      },
+      "passive": { "type": "village_production", "bonusPerStar": 0.12 }
+    },
+    {
+      "id": "aurelius",
+      "nameKey": "hero.aurelius.name",
+      "titleKey": "hero.aurelius.title",
+      "rarity": "legendary",
+      "startingUnlocked": false,
+      "unlockShards": 35,
+      "activeSkill": {
+        "nameKey": "hero.aurelius.skill",
+        "cooldownSec": 18,
+        "radiusPx": 200,
+        "baseDamage": 580,
+        "healWallPercent": 0.15
+      },
+      "passive": { "type": "all_damage_and_gold", "bonusPerStar": 0.15 }
+    },
+    {
+      "id": "valkyra",
+      "nameKey": "hero.valkyra.name",
+      "titleKey": "hero.valkyra.title",
+      "rarity": "legendary",
+      "startingUnlocked": false,
+      "unlockShards": 35,
+      "activeSkill": {
+        "nameKey": "hero.valkyra.skill",
+        "cooldownSec": 17,
+        "radiusPx": 185,
+        "baseDamage": 540,
+        "summonCavalryCount": 4
+      },
+      "passive": { "type": "troop_and_turret_crit", "bonusPerStar": 0.15 }
+    }
+  ],
+  "heroProgression": {
+    "maxLevel": 30,
+    "xpCostBase": 50,
+    "xpCostGrowth": 1.16,
+    "shardsPerStar": [10, 20, 40, 80, 150]
+  },
+  "hexMap": [
+    { "id": "hex_0", "ring": 0, "nameKey": "hex.sun_keep", "waveToClear": 0, "recommendedPower": 0, "bonus": { "type": "base", "value": 0 } },
+    { "id": "hex_1", "ring": 1, "nameKey": "hex.amber_fields", "waveToClear": 1, "recommendedPower": 400, "bonus": { "type": "food_prod", "value": 0.1 } },
+    { "id": "hex_2", "ring": 1, "nameKey": "hex.whispering_pines", "waveToClear": 2, "recommendedPower": 650, "bonus": { "type": "wood_prod", "value": 0.1 } },
+    { "id": "hex_3", "ring": 1, "nameKey": "hex.old_quarry", "waveToClear": 3, "recommendedPower": 950, "bonus": { "type": "stone_prod", "value": 0.1 } },
+    { "id": "hex_4", "ring": 1, "nameKey": "hex.watchtower_ruins", "waveToClear": 4, "recommendedPower": 1300, "bonus": { "type": "turret_damage", "value": 0.08 } },
+    { "id": "hex_5", "ring": 1, "nameKey": "hex.sunken_shrine", "waveToClear": 5, "recommendedPower": 1750, "bonus": { "type": "hero_unlock", "heroId": "lyra" } },
+    { "id": "hex_6", "ring": 1, "nameKey": "hex.gilded_brook", "waveToClear": 6, "recommendedPower": 2200, "bonus": { "type": "gold_prod", "value": 0.12 } },
+    { "id": "hex_7", "ring": 2, "nameKey": "hex.frost_pass", "waveToClear": 8, "recommendedPower": 3100, "bonus": { "type": "slow_potency", "value": 0.1 } },
+    { "id": "hex_8", "ring": 2, "nameKey": "hex.iron_ridge", "waveToClear": 10, "recommendedPower": 4200, "bonus": { "type": "wall_hp", "value": 0.15 } },
+    { "id": "hex_9", "ring": 2, "nameKey": "hex.crystal_hollow", "waveToClear": 12, "recommendedPower": 5600, "bonus": { "type": "research_speed", "value": 0.12 } },
+    { "id": "hex_10", "ring": 2, "nameKey": "hex.cinder_gorge", "waveToClear": 15, "recommendedPower": 7500, "bonus": { "type": "turret_damage", "value": 0.12 } },
+    { "id": "hex_11", "ring": 2, "nameKey": "hex.moonlit_barrow", "waveToClear": 18, "recommendedPower": 9800, "bonus": { "type": "all_prod", "value": 0.12 } },
+    { "id": "hex_12", "ring": 2, "nameKey": "hex.starfall_bridge", "waveToClear": 20, "recommendedPower": 12500, "bonus": { "type": "troop_damage", "value": 0.15 } },
+    { "id": "hex_13", "ring": 3, "nameKey": "hex.obsidian_crag", "waveToClear": 24, "recommendedPower": 16500, "bonus": { "type": "gold_prod", "value": 0.2 } },
+    { "id": "hex_14", "ring": 3, "nameKey": "hex.wraith_marsh", "waveToClear": 28, "recommendedPower": 21500, "bonus": { "type": "hero_cooldown", "value": 0.12 } },
+    { "id": "hex_15", "ring": 3, "nameKey": "hex.sunfire_obelisk", "waveToClear": 32, "recommendedPower": 28000, "bonus": { "type": "all_prod", "value": 0.18 } },
+    { "id": "hex_16", "ring": 3, "nameKey": "hex.kings_bastion", "waveToClear": 36, "recommendedPower": 36000, "bonus": { "type": "wall_hp", "value": 0.25 } },
+    { "id": "hex_17", "ring": 3, "nameKey": "hex.eclipse_gate", "waveToClear": 42, "recommendedPower": 46000, "bonus": { "type": "turret_damage", "value": 0.2 } },
+    { "id": "hex_18", "ring": 3, "nameKey": "hex.heart_of_the_veil", "waveToClear": 50, "recommendedPower": 60000, "bonus": { "type": "crown_of_dawn", "value": 0.3 } }
+  ],
+  "citizenSystem": {
+    "basePopulationByTownHall": [6, 9, 12, 16, 20, 25, 30, 36, 42, 50],
+    "workerBonusPerAssigned": 0.12,
+    "moraleTiers": [
+      { "id": "fervor", "minMorale": 80, "prodMultiplier": 1.25, "buildSpeedMultiplier": 1.1 },
+      { "id": "stable", "minMorale": 50, "prodMultiplier": 1.0, "buildSpeedMultiplier": 1.0 },
+      { "id": "chilled", "minMorale": 0, "prodMultiplier": 0.8, "buildSpeedMultiplier": 0.9 }
+    ]
+  },
+  "royalEdicts": [
+    { "id": "double_shift", "nameKey": "edict.double_shift", "durationSec": 300, "cooldownSec": 600, "effect": { "prodMult": 1.5 }, "powerBonus": 150 },
+    { "id": "rush_build", "nameKey": "edict.rush_build", "durationSec": 0, "cooldownSec": 900, "effect": { "instantBuildReductionPct": 0.25 }, "powerBonus": 150 },
+    { "id": "festival_dawn", "nameKey": "edict.festival_dawn", "durationSec": 600, "cooldownSec": 1200, "effect": { "moraleSet": 100, "instantFood": 200, "instantGold": 40 }, "powerBonus": 180 },
+    { "id": "martial_law", "nameKey": "edict.martial_law", "durationSec": 300, "cooldownSec": 900, "effect": { "combatDamageMult": 1.15 }, "powerBonus": 220 }
+  ],
+  "formationSynergies": [
+    { "id": "balanced_phalanx", "nameKey": "synergy.phalanx", "ratio": { "infantry": 0.5, "cavalry": 0.2, "archers": 0.3 }, "atkBonus": 0.15, "defBonus": 0.15 },
+    { "id": "siege_wall", "nameKey": "synergy.siege", "ratio": { "infantry": 0.6, "cavalry": 0.0, "archers": 0.4 }, "wallHpBonus": 0.25, "defBonus": 0.2 }
+  ],
+  "wardenPanoply": [
+    { "slot": "helm", "nameKey": "panoply.helm", "stat": "infantry_hp", "bonusPerTier": 0.08, "powerPerTier": 180 },
+    { "slot": "cuirass", "nameKey": "panoply.cuirass", "stat": "wall_hp", "bonusPerTier": 0.1, "powerPerTier": 200 },
+    { "slot": "gauntlets", "nameKey": "panoply.gauntlets", "stat": "archer_atk", "bonusPerTier": 0.09, "powerPerTier": 190 },
+    { "slot": "greaves", "nameKey": "panoply.greaves", "stat": "cavalry_atk", "bonusPerTier": 0.09, "powerPerTier": 190 },
+    { "slot": "halberd", "nameKey": "panoply.halberd", "stat": "turret_atk", "bonusPerTier": 0.1, "powerPerTier": 240 },
+    { "slot": "banner", "nameKey": "panoply.banner", "stat": "all_prod", "bonusPerTier": 0.08, "powerPerTier": 220 }
+  ],
+  "chapterMissions": [
+    { "id": "ch1_1", "chapter": 1, "descKey": "mission.ch1_1", "type": "clear_wave", "target": 1, "reward": { "wood": 120, "food": 120, "gold": 30 } },
+    { "id": "ch1_2", "chapter": 1, "descKey": "mission.ch1_2", "type": "building_level", "buildingId": "farm", "target": 2, "reward": { "wood": 150, "stone": 60, "gold": 25 } },
+    { "id": "ch1_3", "chapter": 1, "descKey": "mission.ch1_3", "type": "building_level", "buildingId": "lumber_mill", "target": 2, "reward": { "food": 150, "stone": 60, "gold": 25 } },
+    { "id": "ch1_4", "chapter": 1, "descKey": "mission.ch1_4", "type": "building_level", "buildingId": "town_hall", "target": 2, "reward": { "food": 220, "wood": 220, "stone": 100, "gold": 50 } },
+    { "id": "ch2_1", "chapter": 2, "descKey": "mission.ch2_1", "type": "building_level", "buildingId": "mine", "target": 1, "reward": { "food": 200, "wood": 200, "gold": 45 } },
+    { "id": "ch2_2", "chapter": 2, "descKey": "mission.ch2_2", "type": "clear_wave", "target": 2, "reward": { "wood": 260, "stone": 140, "gold": 60 } },
+    { "id": "ch2_3", "chapter": 2, "descKey": "mission.ch2_3", "type": "building_level", "buildingId": "turret_workshop", "target": 2, "reward": { "wood": 300, "stone": 160, "gold": 70 } },
+    { "id": "ch2_4", "chapter": 2, "descKey": "mission.ch2_4", "type": "clear_wave", "target": 5, "reward": { "food": 500, "wood": 500, "stone": 280, "gold": 150, "shards": 10 } },
+    { "id": "ch3_1", "chapter": 3, "descKey": "mission.ch3_1", "type": "building_level", "buildingId": "town_hall", "target": 3, "reward": { "food": 600, "wood": 600, "stone": 350, "gold": 180 } },
+    { "id": "ch3_2", "chapter": 3, "descKey": "mission.ch3_2", "type": "clear_wave", "target": 10, "reward": { "food": 1000, "wood": 1000, "stone": 600, "gold": 350, "shards": 20 } },
+    { "id": "ch3_3", "chapter": 3, "descKey": "mission.ch3_3", "type": "clear_wave", "target": 15, "reward": { "food": 1800, "wood": 1800, "stone": 1100, "gold": 600, "shards": 35 } }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "downfall",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Downfall — L'Assedio dell'Alba: Fantasy Survival Strategy + Tower Defense + Base Building (Phaser 4.2.1 + TypeScript + Playgama Bridge 2.3.1)",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "test:unit": "node scripts/test_logic.mjs",
+    "test:balance": "node scripts/verify_balance.mjs",
+    "test:e2e": "node scripts/test_e2e_playwright.mjs"
+  },
+  "dependencies": {
+    "@playgama/bridge": "^2.3.1",
+    "phaser": "^4.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "playwright": "^1.50.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.0"
+  }
+}
